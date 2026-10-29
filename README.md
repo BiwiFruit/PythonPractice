@@ -1,2 +1,2 @@
 # PythonPractice
-Collection of various Python Projects.
+Collection of various cool Python Projects.
