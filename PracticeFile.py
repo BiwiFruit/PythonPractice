@@ -73,7 +73,7 @@ def interpreter(a):
         return(f"{float(list[0])-float(list[2]): .1f}")
     else:
         return(f"{float(list[0])*float(list[2]): .1f}")
-def main():
+def main0():
     x = input('what time is it now? ')
     time =  convert(x)
     if 7 <= time <= 8:
@@ -91,4 +91,103 @@ def convert(a):
     elif list[2] == "pm" or list[2] == "p.m.":
         number = float(list[0]) + float(list[1])/60
         return number + 12
-main()
+
+def BillSplitter():
+    print(f"Total: {total}")
+    print(f"People: {people}")
+    print(f"Each person pays: {float(total)/float(people)}")
+
+def UnitConverter():
+    option = input("Convert what? (1) unit into miles (2) C to F ")
+    if int(option) == 1:
+        kmdistance = input("Input distance in km: ")
+        print(f"{kmdistance} km = {float(kmdistance)*0.621: .2f} miles")
+    elif int(option)== 2:
+        celsius = input("Input degrees celsius: ")
+        print(f"{celsius} C = {float(celsius) * 9 /5 + 32: .2f} F")
+    else:
+        print("Invalid choice")
+
+#Lecture 2
+# while loops, for loops, list
+# _ notaiton for i in range when vairbale not important
+# print("meow\n" * 3, end = "")
+# infinite loops, condition while
+# len()
+# None varibale type, dictionaries, lists of dictionaries
+#while True:
+    #n = int(input("What's n? "))
+   # if n > 0: break
+
+#for _ in range(n):
+    #print("meow")
+
+students = ["Herminone", "Harry", "Ron"]
+houses = ["Gryffindor", "Gryffindor", "Gryffindor", " Slytherin"]
+
+def print_square(size):
+    for i in range(size):
+        print("#"*size)
+
+def camel_to_snake_case(input):
+    snake = ""
+    for letter in input:
+        if letter.isupper() == True:
+            snake += "_" 
+            snake += letter.lower()
+        else:
+            snake += letter
+    print(snake)
+  
+def cokemachine():
+    inside = 50
+    while inside > 0:
+        print("Amount Due:", inside, sep = " ")
+        value = int(input("Insert Coin: "))
+        if value in [5, 25, 10]:
+            inside -= value
+    print("Change Owed: ", inside*-1)
+
+def vowelremover():
+    insert = input("Input: ")
+    outsert = ""
+    for char in insert:
+        if char.lower() in ["a", "e", "i", "o",'u']:
+            continue
+        else:
+            outsert += char
+    print(outsert)
+
+def plates():
+    plate  = input("Plate: ")
+    if len(plate) > 6 or len(plate) < 2:
+        print("Invalid")
+        return False
+    elif not plate[0].isalpha() or not plate[1].isalpha():
+        print("Invalid")
+        return False
+    num = 0
+    alpha = 0
+    for i in range(len(plate)):
+        if plate[i].isdigit():
+             if num == 0 and plate[i] == "0":
+                print("Invalid")
+                return False
+             else: 
+                 num = i
+        elif plate[i].isalpha():
+             alpha = i
+        else:
+            print("Invalid")
+            return False
+    if num < alpha and num > 0:
+        print("Invalid")
+        return False
+    print("Valid")
+
+def nutrition():
+    fruits = {"Apple": 130, "Avocado": 50, "Banana": 110, "Cantaloupe": 50, "Grapefruit": 60, "Grapes": 90, "Honeydew Melon": 50, "Kiwifruit": 90, "Lemon": 15, "Lime": 20, "Nectarine": 60, "Orange": 80, "Peach": 60, "Pear": 100, "Pineapple": 50, "Plums": 70, "Strawberries": 50, "Sweet Cherries": 100, "Tangerine": 50, "Watermelon": 80}
+    item = input("Item: ").title()
+    if item in fruits:
+        print("Calories:", fruits[item])
+
