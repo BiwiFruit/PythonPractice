@@ -4,3 +4,6 @@ Learnt how or works in if statements. You cant chain them even if you use bracke
 Learnt .split() cant assign two values to sep, ie.e cant do sep = " " and ":", have to do replace(" ", ":") then do split()
 ## Lecture 2, 7/11
 Realised a logical error in my code. Vanity plates problem. Forgot an edge case. 
+
+## AOC day 1, 7/11
+Got cooked in part 2. So many many edge cases. particuarlly negative/right. mainly because i misunderstoof floor function --  its not to zero, but to negativ einfinity. so with negatives rounds down to negative infinity not up to zero as well. also so many stupid things with abs placing stupid errors.
