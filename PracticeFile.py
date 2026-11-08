@@ -1,4 +1,4 @@
-# Lecture 0
+# Lecture 0 Variables/strings
 #f strings, string methods, input, named paramters, interactive mode, 
 # multiple var assignement, functions, f string methods, main()
 def tip_calc():
@@ -108,7 +108,7 @@ def UnitConverter():
     else:
         print("Invalid choice")
 
-#Lecture 2
+#Lecture 2 Loops
 # while loops, for loops, list
 # _ notaiton for i in range when vairbale not important
 # print("meow\n" * 3, end = "")
@@ -191,3 +191,114 @@ def nutrition():
     if item in fruits:
         print("Calories:", fruits[item])
 
+# Lecture 3 Exceptions
+# try and except and else and pass, ValueError, NameError
+# break, continue
+def fuel_level():
+    while True:
+        try:
+            raw = input('Please input fuel fraction: ').split("/")
+            fraction = float(raw[0])/float(raw[1])
+            if fraction <0:
+                print("What the...")
+                continue
+            elif fraction > 1:
+                print("The heck.")
+                continue
+            elif fraction <= 0.01:
+                print("E")
+                break
+            elif fraction >= 0.99:
+                print("F")
+                break
+            else:
+                print(f"{fraction*100: .0f}%")
+                break
+        except ZeroDivisionError:
+            pass
+        except ValueError:
+            print("enter a bloody fraction you idiot.")
+            pass
+
+def taqueria():
+    menu = {
+    "Baja Taco": 4.25,
+    "Burrito": 7.50,
+    "Bowl": 8.50,
+    "Nachos": 11.00,
+    "Quesadilla": 8.50,
+    "Super Burrito": 8.50,
+    "Super Quesadilla": 9.50,
+    "Taco": 3.00,
+    "Tortilla Salad": 8.00
+    }
+    total = 0
+    while True:
+        try:
+            item = input("Item: ").title()
+            price = menu[item]
+            total += price
+            print('Total: $', total, sep = "")
+        except KeyError:
+            pass
+        except EOFError:
+            break
+            print('Total: $', total, sep = "")
+
+def grocery_list():
+    groceries = []
+    while True:
+        try: 
+            item = input().upper()
+            groceries.append(item)
+        except EOFError:
+            groceries.sort()
+            final_groceries = {}
+            for i in groceries:
+                if i in final_groceries:
+                    final_groceries[i] += 1
+                else:
+                    final_groceries.update({i: 1})
+            for item in final_groceries:
+                print(final_groceries[item], item)
+            break
+
+def outdated():
+    months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+    ]
+    while True:
+        try:
+            x = input("Date: ")
+            if "/" in x:
+                raw = x.split("/")
+                if int(raw[1]) > 31:
+                    continue
+                else:
+                    print(f"{raw[2]}-{raw[1]}-{raw[0]}")
+                    break
+            elif "," in x:
+                raw1 = x.replace(",", "")
+                raw2 = raw1.split()
+                if int(raw2[1]) > 31:
+                    continue
+                else:
+                    print(f"{raw2[2]}-{months.index(raw2[0])}-{raw2[1]}")
+                    break
+            else:
+                print("Try again")
+        except ValueError:
+            print("Enter proper month")
+
+outdated()
