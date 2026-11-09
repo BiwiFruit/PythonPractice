@@ -301,4 +301,170 @@ def outdated():
         except ValueError:
             print("Enter proper month")
 
-outdated()
+# Lecture 4 Libraries
+# import - imports module, random module, from - import specifc function into namespace and not just in whole module
+# random.choice(), random.randint(a,b) - a to b inclusive, random.shuffle()
+# statistics library, sys.argv = a list of words that human types at commandline prompt
+# package is third party libraries/modules
+# pip3 install for 3rd party package install
+# requests library - APIs and website data i.e. use the internet
+# JSON - java script obkect notation basically converitble info across multiple languages, json library to interpret json
+# make my own library/module: sya u have file called sayings.py, to use do from sayings import hello (if u have a heloo fucntion in sayings), or import sayings
+# if making own library/refernece module file, DONT call any functions
+# __name__ conditional at bottom, so runs function e.g. main when original file run, but not when imported
+# if __name__ = "__main__": - when python runs file directly, auto assigns __name__ variable as "__main__", but when this file is imported and run in another file (importing auto runs file then imports), __name__ != __main__ so main() or whatver if block code not run
+#   main()
+
+from random import choice
+import random, statistics, sys, cowsay, requests
+
+coin = choice(["heads", "tails"]) 
+number = random.randint(1, 8)
+cards = ["jack", "queen", "king"]
+random.shuffle(cards)
+# note sys.argv[0] is file name
+def sys_test():
+    if len(sys.argv) < 2:
+        sys.exit("Too few arguments")
+    for arg in sys.argv[1:]:    
+        print("Hello, my name is", arg) 
+    if len(sys.argv) == 2:
+        cowsay.trex("Hello, " + sys.argv[1])
+
+def http_grabber():
+    response = requests.get("https://github.com/BiwiFruit/PythonPractice")
+    print(response.json())
+
+import emoji
+
+def emojize():
+    print(emoji.emojize(sys.argv[1]))
+
+from pyfiglet import Figlet
+figlet = Figlet()
+
+def figletfy():
+    if len(sys.argv) == 1:
+        response = input("insert text (random font): ")
+        figlet.setFont(font = random.choice(figlet.getFonts()))
+        print(figlet.renderText(response))
+    elif len(sys.argv) == 3:
+        response = input(f"insert text ({sys.argv[2]}): ")
+        figlet.setFont(font = sys.argv[2])
+        print(figlet.renderText(response))
+    else:
+        sys.exit("Bruh")
+
+def adieu():
+    name1 = sys.argv[1]
+    count = 1
+    message = f"Adieu, adieu, to {name1} and "
+    while True:
+        if count == 1:
+            response = input(f"{message}")
+            message += f"{response}"
+            count += 1
+        else:
+            raw = message.split(" and ")
+            message = raw[0]
+            message += ", "
+            message += raw[1]
+            message += " and "
+            count += 1
+            response = input(f"{message}")
+            message += response
+
+def game():
+    count = 0
+    while True:
+        response = int(input("Choose level (1-n): "))
+        if response < 1:
+            continue
+        else: 
+            count += response
+            break
+    number = random.randint(1, count)
+    while True:
+        guess = int(input(f"Guess the number from 1-{count}: "))
+        if guess == number:
+            print(f"You won! The number is: {count}")
+            break
+        elif guess >= number:
+            print("Too large!")
+        elif guess <= number:
+            print("Too small!")
+
+def professor():
+    count = 0
+    while True:
+        level = int(input("Enter level: "))
+        if level not in [1 ,2 ,3]:
+            continue
+        else:
+            count += level
+            break
+    print(f"Level: {count}")
+    score = 0
+    for i in range(10):
+        total = 0
+        x = generate_equation(count)
+        while total < 3:
+            response = input(x[0])
+            if response == str(x[1]) and total == 0:
+                score += 1
+                break
+            elif response == str(x[1]):
+                break
+            elif total == 2:
+                print("EEE")
+                print(x[0], x[1])
+                break
+            else:
+                print("EEE")
+                total += 1
+    print("Score: ", score, "/10", sep = "")
+
+def generate_equation(level):
+    x = random.randint(-10**level, 10**level)
+    y = random.randint(-10**level, 10**level)
+    return [f"{x} + {y} = ", x + y]
+
+def bitcoin_price():
+    number = sys.argv[1]
+    try:
+        if type(number) != float:
+            sys.exit("Error: Input not float")
+        else:
+            response = requests.get("") 
+            amount = response.json()
+    except IndexError:
+        sys.exit("Enter ONE (1) argument for no. bitcoin you want")
+
+import datetime
+
+def days_until():
+    event = input("What event? ")
+    date = input("What date? (enter YYYY/MM/DD) ")
+    list1 = date.split("/")
+    time_delta = datetime.datetime(int(list1[0]), int(list1[1]), int(list1[2])) - datetime.datetime.now()
+    print(event, "is in", time_delta)
+
+import string
+
+def password_gen():
+    length = int(input("Length: "))
+    symbols = input("Include symbols? (y/n): ")
+    symbol_value = False
+    symbol_list = string.ascii_letters + string.digits + string.punctuation
+    normal_list = string.ascii_letters + string.digits
+    if symbols == "y":
+        symbol_value = True
+    password = ""
+    for i in range(length):
+        if symbol_value == True:
+            password += random.choice(symbol_list)
+        else:
+            password += random.choice(normal_list)
+    print(password)
+
+password_gen()
