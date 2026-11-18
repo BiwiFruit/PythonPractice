@@ -468,4 +468,116 @@ def password_gen():
     print(password)
 
 # Lecture 6 File I/O
-# open(), .write()
+# open(file, "a"/"w"/"r"), .write(), .readlines()
+# with/has
+#.rstrip()
+#remember file lines are list values file is list
+# CSV files
+#using sorted() on lists of dictionaries, lambda function
+# CSV library, csv.reader(), csv.DictReader() - first row acts as keys for the columns - assigns columns a label
+# writerow() in csv, csv writing, writer
+# dictwriter
+# PIL library for images, videos etc editing
+
+def name_maker():
+    name = input("What's your name? ")
+    file = open("names.txt", "a")
+    file.write(name + "\n")
+    file.close()
+
+def name_writer():
+    with open("names.txt", "a") as file:
+        file.write(f"{input("What's your name? ")}\n")
+
+def name_reader():
+    with open("names.txt", "r") as file:
+        for line in sorted(file):
+            print(line, end="")
+
+def csv_reader():
+    with open("students.csv") as file:
+        for line in file:
+            for i in line.rstrip().split(","):
+                print(i)
+
+def csv_reader_saver():
+    students = []
+    with open("students.csv") as file:
+        for line in file:
+            name, house = line.split(",")
+            student = {"name": name, "house": house}
+            students.append(student)
+    for student in sorted(students, key =lambda x: x["name"]):
+        print(f"student {student['name']} is in {student["house"]}")
+
+import csv
+
+def csv_DictReader():
+    students = []
+    with open("students.csv") as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            print(f"{row["name"]}:{row["home"]}")
+
+def csv_writer():
+    name = input("Name? ")
+    home = input("Home? ")
+    with open(students.csv, "a") as file:
+        writer = csv.writer(file)
+        writer.writerow([name, home])
+
+def csv_dict_writer():
+    with open("students.csv", "a") as file:
+        name = input("Name? ")
+        home = input("Home? ")
+        writer = csv.DictWriter(file, fieldnames = ["name", "home"])
+        writer.writerow({"name": name, "home": home})
+
+def lines_of_code():
+    try:
+        if sys.argv[1].split(".")[1] == "py":
+            with open(sys.argv[1], "r") as file:
+                count = 0
+                for line in file:
+                    if line.strip() != "" and line.strip()[0] != "#":
+                        count += 1
+                print(count)
+        else:
+            sys.exit
+    except IndexError:
+        sys.exit("One argument pls")
+    except FileNotFoundError:
+        sys.exit
+import tabulate 
+def pizza_menu():
+    try:
+        if len(sys.argv) > 2:
+            sys.exit
+        elif len(sys.argv) < 2:
+            sys.exit
+        elif sys.argv[1].split(".")[1] != "csv":
+            sys.exit
+        else:
+            with open("pizza.csv") as file:
+                reader = csv.DictReader(file)
+                print(tabulate.tabulate(reader, headers = "keys", tablefmt = "grid"))   
+    except FileNotFoundError:
+        sys.exit
+
+def scourgify():
+    try:
+        if len(sys.argv) > 3:
+            sys.exit
+        elif len(sys.argv) < 3:
+            sys.exit
+        else:
+            with open(sys.argv[1]) as infile, open(sys.argv[2], "w") as outfile:
+                students = []
+                reader = csv.DictReader(infile)
+                writer = csv.DictWriter(outfile, fieldnames = ["first", "last", "house"])
+                for row in reader:
+                    students.append(row)
+                for student in students:
+                    writer.writerow({"first": student["name"].split(", ")[1], "last": student["name"].split(", ")[0], "house": student["house"]})
+    except FileNotFoundError:
+        sys.exit
